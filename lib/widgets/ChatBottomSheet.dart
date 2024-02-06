@@ -57,7 +57,7 @@ Widget build(BuildContext context){
           child: Icon(
             Icons.send,
             color: Color(0xff005198),
-            size:20
+            size:16
           ),
         ),
       ],

@@ -21,6 +21,9 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
   List<Reclamation> listReclamationsCloturees=[];
   List<Reclamation> listReclamationsEnCours=[];
 
+  int nombre_reclamations_en_cours=0;
+  int nombre_reclamations_cloturees=0;
+
 
   @override
   void initState()   {
@@ -34,25 +37,34 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
 
      try{
        var responseCloturee = await Api().getDataWithOutData("list-reclamation-cloturees");
-      //  var responseEnCours = await Api().getDataWithOutData("all-users");
-    //  var reclamationsCloturees = responseCloturee.data;
+       var responseEnCours = await Api().getDataWithOutData("list-reclamation-en-cours");
+     var reclamationsCloturees = responseCloturee.data;
     //  var reclamationsCloturees = List.from(responseCloturee.data['reclamations']);
-      // var reclamationsEnCours = responseEnCours.data;
+      var reclamationsEnCours = responseEnCours.data;
       // var reclamationsEnCours = List.from(responseEnCours.data["reclamations"]);
 
       
-        // for (var i in reclamationsCloturees) {
-        //   var reclamation = Reclamation.fromJson(i);
-        //   listReclamationsCloturees.add(reclamation);
-        // }
+        for (var i in reclamationsCloturees) {
 
-        // for (var i in reclamationsEnCours) {
-        //   var reclamation = Reclamation.fromJson(i);
-        //   listReclamationsEnCours.add(reclamation);
-        // }
+          var reclamation = Reclamation.fromJson(i);
+          listReclamationsCloturees.add(reclamation);
+        }
 
-        print(listReclamationsCloturees);
-        print(listReclamationsEnCours);
+        for (var i in reclamationsEnCours) {
+          var reclamation = Reclamation.fromJson(i);
+          listReclamationsEnCours.add(reclamation);
+        }
+
+        
+        // print(listReclamationsCloturees);
+
+        // print(listReclamationsEnCours);
+
+      setState(() {
+        
+          nombre_reclamations_en_cours = listReclamationsEnCours.length;
+        nombre_reclamations_cloturees = listReclamationsCloturees.length;
+      });
       // } 
       // else {
       //   print("Erreur lors de la récupération des données.");
@@ -70,19 +82,27 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
  
   }
 
-  final List<HealthModel> healthDetails = const [
-    HealthModel(
-        icon: 'assets/svg/burn.svg', value: "1000", title: "Nombre de clients"),
-    HealthModel(icon: 'assets/svg/steps.svg', value: "30", title: "Plainte"),
-    HealthModel(
-        icon: 'assets/svg/distance.svg', value: "25", title: "Plaintes résolues"),
-    HealthModel(icon: 'assets/svg/sleep.svg', value: "5", title: "Plaintes en cours"),
-  ];
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+  final List<HealthModel> stats_reclamations =  [
+    HealthModel(
+        icon: 'assets/svg/burn.svg', value: "0", title: "Réclamations clôturées"),
+    HealthModel(icon: 'assets/svg/steps.svg', value: "0", title: "Réclamations en cours"),
+    // HealthModel(
+    //     icon: 'assets/svg/distance.svg', value: "0", title: "Plaintes résolues"),
+    // HealthModel(icon: 'assets/svg/sleep.svg', value: "0", title: "Plaintes en cours"),
+  ];
+
+  stats_reclamations[0].value = nombre_reclamations_cloturees.toString();
+  stats_reclamations[1].value = nombre_reclamations_en_cours.toString();
+
     return  GridView.builder(
-      itemCount: healthDetails.length,
+      itemCount: stats_reclamations.length,
       shrinkWrap: true,
       physics: const ScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,11 +115,11 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(healthDetails[i].icon),
+              SvgPicture.asset(stats_reclamations[i].icon),
               Padding(
                 padding: const EdgeInsets.only(top: 15, bottom: 4),
                 child: Text(
-                  healthDetails[i].value,
+                  stats_reclamations[i].value,
                   style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,
@@ -107,7 +127,7 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
                 ),
               ),
               Text(
-                healthDetails[i].title,
+                stats_reclamations[i].title,
                 style: const TextStyle(
                     fontSize: 13,
                     color: Colors.grey,

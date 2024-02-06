@@ -2,7 +2,7 @@ class Reclamation{
 
    int? id, clientId;
   String? objet, description;
-  bool? statutReclam;
+  String? statutReclam;
 
   Reclamation({this.id, this.objet, this.description, this.statutReclam, this.clientId});
 

@@ -101,14 +101,14 @@ class _MenuState extends State<Menu> {
   ];
     return Container(
       height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border: Border(
             right: BorderSide(
               color: Colors.white,
               width: 1,
             ),
           ),
-          color: const Color(0xFF171821)),
+          color: Color(0xFF171821)),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(

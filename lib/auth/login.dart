@@ -178,8 +178,8 @@ class _LoginState extends State<Login> {
       if(user.typeUser == "client"){
         Navigator.pushNamed(context, "HomePage");
       }else{
-         Navigator.pushNamed(context, "HomePage");
-        //  Navigator.pushNamed(context, "dashboard");
+       //  Navigator.pushNamed(context, "HomePage");
+          Navigator.pushNamed(context, "dashboard");
        // Navigator.pushNamed(context, "HomePage");
       }
 
@@ -209,7 +209,7 @@ class _LoginState extends State<Login> {
                 TextButton(
                   child: const Text(
                     'Créer un compte',
-                    style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 22, 81, 129),
+                    style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 22, 81, 129),
                   )),
                   onPressed: () {
                 //     Navigator.push(
