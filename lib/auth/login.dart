@@ -151,7 +151,7 @@ class _LoginState extends State<Login> {
       "email": email,
       "password": password,
     };
-
+    // print(data);
       // final dio = Dio();
       // final response = await dio.post('http://10.0.2.2:8000/api/login',data : data);
 
@@ -159,22 +159,12 @@ class _LoginState extends State<Login> {
     var body = response.data;
 
     if(body["status"] == 1){
-
       User user = User.fromJson(body["user"]);
 
       
       globals.access_token = body["access_token"];
+      globals.user_connecte = user;
 
-      //  ScaffoldMessenger.of(context).showSnackBar(
-      // SnackBar(
-      // content: Text("Connexion réussie avec succès"),
-      // duration: Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
-      // action: SnackBarAction(
-      //   label: '',
-      //   onPressed: () {
-          
-      //   },
-      // ),));
       if(user.typeUser == "client"){
         Navigator.pushNamed(context, "HomePage");
       }else{
@@ -212,11 +202,6 @@ class _LoginState extends State<Login> {
                     style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 22, 81, 129),
                   )),
                   onPressed: () {
-                //     Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const Signup()),
-                //  );
-
                 Navigator.pushNamed(context, "register");
                   },
                 )

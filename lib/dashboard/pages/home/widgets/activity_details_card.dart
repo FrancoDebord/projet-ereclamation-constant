@@ -1,6 +1,7 @@
 // import 'package:dio/dio.dart';
 // import 'package:message/auth/api.dart';
 import 'package:message/auth/api.dart';
+import 'package:message/chatClient/pages/HomePage.dart';
 import 'package:message/dashboard/model/health_model.dart';
 import 'package:message/dashboard/responsive.dart';
 import 'package:message/dashboard/widgets/custom_card.dart';
@@ -91,26 +92,51 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
 
   final List<HealthModel> stats_reclamations =  [
     HealthModel(
-        icon: 'assets/svg/burn.svg', value: "0", title: "Réclamations clôturées"),
-    HealthModel(icon: 'assets/svg/steps.svg', value: "0", title: "Réclamations en cours"),
+        icon: 'assets/svg/burn.svg',
+         value: "${nombre_reclamations_cloturees.toString()}", 
+         title: "Réclamations clôturées",
+  //       onTap: () {
+  //         Navigator.pushNamed(context, "HomePage");
+  //  },         
+),
+    HealthModel(
+      icon: 'assets/svg/steps.svg',
+      value: "${nombre_reclamations_en_cours.toString()}", 
+      title: "Réclamations en cours",
+  //      onTap: () {
+  //         Navigator.pushNamed(context, "HomePage");
+  //  },         
+      ),
     // HealthModel(
     //     icon: 'assets/svg/distance.svg', value: "0", title: "Plaintes résolues"),
     // HealthModel(icon: 'assets/svg/sleep.svg', value: "0", title: "Plaintes en cours"),
   ];
 
-  stats_reclamations[0].value = nombre_reclamations_cloturees.toString();
-  stats_reclamations[1].value = nombre_reclamations_en_cours.toString();
+  // stats_reclamations[0].value = nombre_reclamations_cloturees.toString();
+  // stats_reclamations[1].value = nombre_reclamations_en_cours.toString();
 
-    return  GridView.builder(
-      itemCount: stats_reclamations.length,
-      shrinkWrap: true,
-      physics: const ScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
-          crossAxisSpacing: !Responsive.isMobile(context) ? 15 : 12,
-          mainAxisSpacing: 12.0),
-      itemBuilder: (context, i) {
-        return CustomCard(
+    return GridView.builder(
+    itemCount: stats_reclamations.length,
+    shrinkWrap: true,
+    physics: const ScrollPhysics(),
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
+      crossAxisSpacing: !Responsive.isMobile(context) ? 15 : 12,
+      mainAxisSpacing: 12.0,
+    ),
+    itemBuilder: (context, i) {
+      return InkWell(
+
+
+        onTap :() {
+            // Navigator.pushNamed(context, "HomePage");
+
+        Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>  HomePage(listReclamations: (i == 0?listReclamationsCloturees:listReclamationsEnCours),)),
+  );
+        },
+        child: CustomCard(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,22 +147,27 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
                 child: Text(
                   stats_reclamations[i].value,
                   style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600),
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               Text(
                 stats_reclamations[i].title,
                 style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.normal),
+                  fontSize: 13,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ],
           ),
-        );
-      },
-   );
+        ),
+       // onTap: stats_reclamations[i].onTap, // Définir l'action onTap ici
+     );
+
+    },
+ );
   }
 }

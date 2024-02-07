@@ -1,10 +1,13 @@
 class Reclamation{
 
-   int? id, clientId;
-  String? objet, description;
-  String? statutReclam;
+   int id;
+   int clientId;
+  String objet;
+  String description;
+  String statutReclam;
+  String createdAt;
 
-  Reclamation({this.id, this.objet, this.description, this.statutReclam, this.clientId});
+  Reclamation({required this.id, required this.objet, required this.description, required this.statutReclam, required this.clientId, required this.createdAt});
 
   factory Reclamation.fromJson(Map<String, dynamic> json){
     return Reclamation(
@@ -13,6 +16,7 @@ class Reclamation{
       description: json['description'],
       statutReclam: json['statut_reclam'],
       clientId: json['client_id'],
+      createdAt: json['created_at'],
     );
   }
 }

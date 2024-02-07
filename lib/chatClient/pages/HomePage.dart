@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:message/models/Reclamation.dart';
 import 'package:message/widgets/ActiveChats.dart';
 import 'package:message/widgets/RecentChats.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+
+   HomePage({super.key, required this.listReclamations});
+  List<Reclamation> listReclamations;
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +72,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const ActiveChats(),
-          const RecentChats(),
+          // const ActiveChats(),
+           RecentChats(listReclamations: listReclamations),
         ],
       ),
       floatingActionButton: FloatingActionButton(

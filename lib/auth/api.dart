@@ -1,10 +1,10 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 import "package:dio/dio.dart";
-import "package:http/http.dart" as http;
-import "package:shared_preferences/shared_preferences.dart";
+// import "package:http/http.dart" as http;
+// import "package:shared_preferences/shared_preferences.dart";
 import 'package:message/globals.dart' as globals;
 
 class Api{
@@ -27,13 +27,11 @@ class Api{
      final dio = Dio();
       dio.options.headers['content-Type'] = 'application/json';
      dio.options.headers['Accept'] = 'application/json';
-     dio.options.headers["authorization"] = "token ${globals.access_token}";
+     dio.options.headers["authorization"] = "Bearer ${globals.access_token}";
       return  await dio.post(fullUrl,data : data);
   }
 
-/**
- * Methode à utiliser pour des routes GET qui ne demandent pas de paramètres
- */
+/// Methode à utiliser pour des routes GET qui ne demandent pas de paramètres
    getDataWithOutData(apiUrl) async {
     var fullUrl = _url + apiUrl;
 
@@ -48,8 +46,8 @@ class Api{
    
   }
 
-/**
- * Methode à utiliser pour des routes GET qui demandent des paramètres
+/*
+  Methode à utiliser pour des routes GET qui demandent des paramètres
  */
   getDataWithData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
@@ -57,8 +55,10 @@ class Api{
      final dio = Dio();
      dio.options.headers['content-Type'] = 'application/json';
      dio.options.headers['Accept'] = 'application/json';
-     dio.options.headers["authorization"] = "token ${globals.access_token}";
-      return  await dio.get(fullUrl,data : data);
+     dio.options.headers["authorization"] = "Bearer ${globals.access_token}";
+     print("Je suis la clé de l'user connecté");
+     print(globals.id_user);
+      return   await dio.get(fullUrl,data : data);
    
    
   }
@@ -78,11 +78,11 @@ class Api{
   //     headers: _setHeaders(),
   //   );
   // }
-  _setHeaders()=>{
-    'Content-type':'application/json',
-    'Accept':'application/json',
-     'Authorization': 'Bearer ${globals.access_token}',
-  };
+  // _setHeaders()=>{
+  //   'Content-type':'application/json',
+  //   'Accept':'application/json',
+  //    'Authorization': 'Bearer ${globals.access_Bearer}',
+  // };
 
  
 }

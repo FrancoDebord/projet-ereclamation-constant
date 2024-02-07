@@ -31,24 +31,28 @@ class _ReclamationState extends State<ReclamationClient> {
      
 
       final response = await Api().postData(data, "creer-reclamation");
+
+        print(response);
      
       final body = response.data;
 
+
        print( "La réclamation a été envoyée avec succès $body");
 
-      if(body['status']==200){
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-              content: Text("Votre demande a été enregistrée avec succès"),
-              duration: Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
-              action: SnackBarAction(
-                label: 'OK',
-                onPressed: () {
-                  Navigator.pushNamed(context, "chatPage");   
-          },
-        ),)
-      );
-         Navigator.pushNamed(context, "chatPage");   
+      // if(body['status']==200){
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //         SnackBar(
+      //         content: Text("Votre demande a été enregistrée avec succès"),
+      //         duration: Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      //         action: SnackBarAction(
+      //           label: 'OK',
+      //           onPressed: () {
+      //             Navigator.pushNamed(context, "chatPage");   
+      //     },
+      //   ),)
+      // );
+      if(body['status']==1){
+         Navigator.pushNamed(context, "HomePage");   
       }else{
           print("Erreur $body");
       }
