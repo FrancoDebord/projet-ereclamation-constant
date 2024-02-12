@@ -223,7 +223,7 @@ class _SignupState extends State<Signup> {
                 TextButton(
                    child: const Text(
                     'se connecter',
-                    style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 22, 81, 129),
+                    style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 22, 81, 129),
                   )),
                   onPressed: () {
                     //signup screen

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
-import "package:message/widgets/ChatBottomSheet.dart";
-import "package:message/widgets/ChatSample.dart";
+
+import "../widgets/ChatBottomSheet.dart";
+import "../widgets/ChatSample.dart";
 
 class ChatPage extends StatelessWidget{
   const ChatPage({super.key});

@@ -1,6 +1,11 @@
 
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:message/auth/api.dart';
+import 'package:message/dashboard/pages/home/widgets/HomePage.dart';
+// import 'package:message/chatClient/pages/HomePage.dart';
+// import 'package:message/dashboard/pages/home/page.dart';
 // import 'package:message/auth/login.dart';
 // import 'package:message/models/User.dart';
 //import "dart:convert";
@@ -25,7 +30,8 @@ class _ReclamationState extends State<ReclamationClient> {
     final data={
       "objet":Objet_reclamationController .text.toString(),
       "description":descriptionController.text.toString(),
-      "client_id":uidController.text.toString(),
+     // "client_id":uidController.text.toString(),
+     
       
     };
      
@@ -141,21 +147,55 @@ class _ReclamationState extends State<ReclamationClient> {
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Color(0xff005198)?? Colors.blue),
+            backgroundColor: MaterialStateProperty.all<Color>(Color(0xff005198)),
           ),
           onPressed: () async {
-            
+                  showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(
+                  child: CircularProgressIndicator(),
+                    );
+                  },
+                );
+            try{
               add_reclamation();
               Objet_reclamationController .text="";
               descriptionController.text="";
-              
-          },
-    //               },
-    child:  Text(' Envoyer '),
+
+               await Future.delayed(Duration(seconds: 2)); // Attendez 2 secondes
     
-  ),
-)
+                 Navigator.pop(context);
+              
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HomePage(listReclamations: const [])),
+                        );
+  //  Navigator.pushNamed(context, "HomePage");
+              
+  } catch(e){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Erreur"),
+          content: Text("Une erreur s'est produite lors de l'envoi de la réclamation."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Envoyer"),
+            ),
+          ],
+        );
+  },
+    //               },
+      // child:  Text(' Envoyer '),
+    
+  );
+  }}, child: Text('Envoyer'),)
   ,
-  ])));
+  )])));
   }
 }

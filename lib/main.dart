@@ -1,11 +1,11 @@
 // import 'package:message/auth/api.dart';
-import 'package:message/chatClient/pages/HomePage.dart';
+import 'package:message/dashboard/pages/home/widgets/HomePage.dart';
 import 'package:message/dashboard/admin.dart';
 import 'package:flutter/material.dart';
 import 'package:message/auth/login.dart';
 import 'package:message/auth/sign.dart';
 // import 'package:message/dashboard/dash.dart';
-import 'package:message/pages/ChatPage.dart';
+import 'package:message/pages/Entete.dart';
 import 'package:message/reclamation/reclamation_client.dart';
 
 void main() {
@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
         //"/": (context) =>const MyHomeAdmin(),
 
       "/":(context) =>const Login(),
-      "reclamation":(context)=>  ReclamationClient(),
+      "reclamation":(context)=> const ReclamationClient(),
       "login":(context)=> const Login(),
 
        //"/":(context)=>MyApp(),
        "HomePage": (context) =>  HomePage(listReclamations: const []),
         "register":(context) =>const Signup(), 
-        "chatPage":(context) =>const ChatPage(), 
+        // "chatPage":(context) =>const EnteteMessage(), 
         "dashboard": (context) => MyAdmin(),
         
 

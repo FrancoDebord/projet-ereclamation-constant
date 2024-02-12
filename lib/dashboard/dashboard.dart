@@ -1,5 +1,6 @@
 // import 'package:message/auth/api.dart';
-import 'package:message/dashboard/pages/home/home_page.dart';
+// import 'package:message/dashboard/pages/home/page.dart';
+import 'package:message/dashboard/pages/home/page.dart';
 import 'package:message/dashboard/responsive.dart';
 import 'package:message/dashboard/widgets/menu.dart';
 import 'package:message/dashboard/widgets/profile/profile.dart';

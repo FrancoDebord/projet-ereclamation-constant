@@ -1,16 +1,20 @@
 // ignore: file_names
 import "package:flutter/material.dart";
 import 'package:custom_clippers/custom_clippers.dart';
+import 'package:message/models/Reclamation.dart';
+import 'package:message/models/Reponse.dart';
 
 
-class ChatSample extends StatefulWidget{
-  const ChatSample({super.key});
+class Messagerie extends StatefulWidget{
+  const Messagerie({super.key, required this.reponse});
+
+  final Reponse reponse;
 
   @override
-  State<ChatSample> createState() => _ChatSampleState();
+  State<Messagerie> createState() => _MessagerieState();
 }
 
-class _ChatSampleState extends State<ChatSample> {
+class _MessagerieState extends State<Messagerie> {
   @override
 
   Widget build(BuildContext context){
@@ -36,11 +40,11 @@ class _ChatSampleState extends State<ChatSample> {
                   ),
                 ]
               ),
-              child:const Text(
+              child: Text(
 
                 //Recupérer la description de la reclamation ici
-                "Hello, how are you?",
-                style: TextStyle(
+                widget.reponse.message,
+                style: const  TextStyle(
                   fontSize:16,
                   
                 ),

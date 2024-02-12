@@ -1,37 +1,37 @@
-import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+// import 'package:flutter/material.dart';
+// import 'package:rive/rive.dart';
 
-class SibMenuTitle extends StatelessWidget{
-  SibMenuTitle({super.key});
-  @override
+// class SibMenuTitle extends StatelessWidget{
+//   SibMenuTitle({super.key});
+//   @override
   
-  Widget build(BuildContext context) {
+//   Widget build(BuildContext context) {
     
-    return Column( 
-      children: [
-         const Padding(
-           padding: EdgeInsets.only(left: 24),
-           child: Divider(
-            color: Colors.white,
-            height: 1,
+//     return Column( 
+//       children: [
+//          const Padding(
+//            padding: EdgeInsets.only(left: 24),
+//            child: Divider(
+//             color: Colors.white,
+//             height: 1,
             
-                 ),
-         ),
-         ListTile(
-            onTap: (){
+//                  ),
+//          ),
+//          ListTile(
+//             onTap: (){
 
-            },
-            leading: SizedBox(height: 34, width: 34,
-            child: RiveAnimation.asset("assets/RiveAssets/icons.riv",
-            artboard: "Home",
-            onInit:(artboard){
+//             },
+//             leading: SizedBox(height: 34, width: 34,
+//             child: RiveAnimation.asset("assets/RiveAssets/icons.riv",
+//             artboard: "Home",
+//             onInit:(artboard){
 
-            },),),
+//             },),),
             
-            title: const Text("Home", style:TextStyle(color: Colors.white70)  ,),
-           )
-      ],
-    );
-  }
-}
+//             title: const Text("Home", style:TextStyle(color: Colors.white70)  ,),
+//            )
+//       ],
+//     );
+//   }
+// }
 

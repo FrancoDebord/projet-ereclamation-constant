@@ -9,7 +9,11 @@ class CustomCard extends StatelessWidget {
   const CustomCard({super.key, this.color,this.padding, required this.child});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    // ListView(children: [
+     Container(
+       height: 36,
+      
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(8.0),

@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
-class ChatBottomSheet extends StatelessWidget{
-  const ChatBottomSheet({super.key});
+class ChatBottom extends StatelessWidget{
+  const ChatBottom({super.key});
 
   @override
 
@@ -42,7 +42,9 @@ Widget build(BuildContext context){
           padding:const EdgeInsets.only(left:10),
           child:Container(
             alignment: Alignment.centerRight,
-            width:270,
+            width:200,
+            //MediaQuery.of(context).size.width,
+           // 200,
             child: TextFormField(
               decoration: const InputDecoration(
                 hintText: "Type something",

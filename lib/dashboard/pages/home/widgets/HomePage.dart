@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:message/models/Reclamation.dart';
+import 'package:message/reclamation/reclamation_client.dart';
 import 'package:message/widgets/ActiveChats.dart';
 import 'package:message/widgets/RecentChats.dart';
 
 class HomePage extends StatelessWidget {
 
    HomePage({super.key, required this.listReclamations});
-  List<Reclamation> listReclamations;
+  final List<Reclamation> listReclamations;
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +54,13 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: 300,
+                    width: 100,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: TextFormField(
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                           hintText: "Search",
+                          hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
                           border: InputBorder.none,
                         ),
                       ),
@@ -80,7 +82,11 @@ class HomePage extends StatelessWidget {
         backgroundColor: const Color(0xff005198),
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, "reclamation");
+           Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  ReclamationClient()),
+           );
+         // Navigator.pushNamed(context, "reclamation");
         },
       ),
     );

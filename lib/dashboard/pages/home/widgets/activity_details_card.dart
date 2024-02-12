@@ -1,7 +1,7 @@
 // import 'package:dio/dio.dart';
 // import 'package:message/auth/api.dart';
 import 'package:message/auth/api.dart';
-import 'package:message/chatClient/pages/HomePage.dart';
+import 'package:message/dashboard/pages/home/widgets/HomePage.dart';
 import 'package:message/dashboard/model/health_model.dart';
 import 'package:message/dashboard/responsive.dart';
 import 'package:message/dashboard/widgets/custom_card.dart';
@@ -82,41 +82,27 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
   }
  
   }
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
-  final List<HealthModel> stats_reclamations =  [
+  final List<HealthModel> statsReclamations =  [
     HealthModel(
         icon: 'assets/svg/burn.svg',
-         value: "${nombre_reclamations_cloturees.toString()}", 
+         value: nombre_reclamations_cloturees.toString(), 
          title: "Réclamations clôturées",
-  //       onTap: () {
-  //         Navigator.pushNamed(context, "HomePage");
-  //  },         
+           
 ),
     HealthModel(
       icon: 'assets/svg/steps.svg',
-      value: "${nombre_reclamations_en_cours.toString()}", 
+      value: nombre_reclamations_en_cours.toString(), 
       title: "Réclamations en cours",
-  //      onTap: () {
-  //         Navigator.pushNamed(context, "HomePage");
-  //  },         
+    
       ),
-    // HealthModel(
-    //     icon: 'assets/svg/distance.svg', value: "0", title: "Plaintes résolues"),
-    // HealthModel(icon: 'assets/svg/sleep.svg', value: "0", title: "Plaintes en cours"),
+    
   ];
 
-  // stats_reclamations[0].value = nombre_reclamations_cloturees.toString();
-  // stats_reclamations[1].value = nombre_reclamations_en_cours.toString();
-
     return GridView.builder(
-    itemCount: stats_reclamations.length,
+    itemCount: statsReclamations.length,
     shrinkWrap: true,
     physics: const ScrollPhysics(),
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -141,11 +127,11 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(stats_reclamations[i].icon),
+              SvgPicture.asset(statsReclamations[i].icon),
               Padding(
                 padding: const EdgeInsets.only(top: 15, bottom: 4),
                 child: Text(
-                  stats_reclamations[i].value,
+                  statsReclamations[i].value,
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -154,9 +140,9 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
                 ),
               ),
               Text(
-                stats_reclamations[i].title,
+                statsReclamations[i].title,
                 style: const TextStyle(
-                  fontSize: 13,
+                  fontSize: 15,
                   color: Colors.grey,
                   fontWeight: FontWeight.normal,
                 ),

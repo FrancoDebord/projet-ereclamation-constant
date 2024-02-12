@@ -20,7 +20,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
- 
+ bool isloading = false;
   @override
 
 // La méthode de l'api
@@ -141,6 +141,14 @@ class _LoginState extends State<Login> {
       backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[900]?? Colors.blue),
     ),
     onPressed: () async {
+        // showDialog(
+        //           context: context,
+        //           builder: (BuildContext context) {
+        //             return Center(
+        //           child: CircularProgressIndicator(),
+        //             );
+        //           },
+        // );
       try {
           
       var email = emailController.text.trim();
@@ -177,21 +185,25 @@ class _LoginState extends State<Login> {
 
       print("Connexion échouée : ${body["message"]} ");
     }
-
+      await Future.delayed(Duration(seconds: 2)); // Attendez 2 secondes
+    
+          // Navigator.pop(context);
+              
       } catch (e) {
-        
+       
         print( e);
       }
 
     emailController.text="";
     passwordController.text="";
-     
+
     },
-    //               },
-    child: const Text('Se connecter'),
+    child: Text('Se connecter'), // Ajoutez le Text
+     
+    ),
+
   ),
-)
-  ,
+
  Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
@@ -199,7 +211,7 @@ class _LoginState extends State<Login> {
                 TextButton(
                   child: const Text(
                     'Créer un compte',
-                    style: TextStyle(fontSize: 16, color: Color.fromARGB(255, 22, 81, 129),
+                    style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 22, 81, 129),
                   )),
                   onPressed: () {
                 Navigator.pushNamed(context, "register");
@@ -207,7 +219,7 @@ class _LoginState extends State<Login> {
                 )
               ],
             ),
-          ],
-        )));
+          ]),
+        ));
   }
 }

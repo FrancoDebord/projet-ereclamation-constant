@@ -1,7 +1,7 @@
-// ignore: file_names
 import "package:flutter/material.dart";
 import "package:message/auth/api.dart";
 import "package:message/models/Reclamation.dart";
+import "package:message/pages/Entete.dart";
 
 
 class RecentChats extends StatefulWidget{
@@ -26,7 +26,7 @@ Future<void> User_reclamation() async{
       //   }
 
     
-
+      print("je suis là");
       print(dataClient);
   }catch(e){
 
@@ -39,7 +39,10 @@ Future<void> User_reclamation() async{
   Widget build(BuildContext context){
 
     print(widget.listReclamations);
-    return ListView.builder(
+    return 
+    Container(
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
           itemCount: widget.listReclamations.length,
           itemBuilder: (BuildContext context, int  i){
           
@@ -49,7 +52,10 @@ Future<void> User_reclamation() async{
               padding:const EdgeInsets.symmetric(vertical:15), 
               child:InkWell(
                 onTap:(){
-                  Navigator.pushNamed(context, "chatPage");
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EnteteMessage(reclamation: reclamationEnCours)),
+                    );
                 },
               child:Container(
                 height:65,
@@ -64,8 +70,14 @@ Future<void> User_reclamation() async{
                       child:Column(
                         crossAxisAlignment:CrossAxisAlignment.start,
                         children:[
-
-                          Text(reclamationEnCours.objet, 
+                          
+                          Text(
+                            
+                              // reclamationEnCours.description,
+                            reclamationEnCours.objet.length > 10
+                            ? '${reclamationEnCours.description.substring(0, 10)}...'
+                            : reclamationEnCours.objet,
+                           // reclamationEnCours.objet, 
                             style:const TextStyle(
                               fontSize:18,
                               color:Color(0xff113953),
@@ -73,14 +85,19 @@ Future<void> User_reclamation() async{
                             ),
                           ),
                           const SizedBox(height:10),
-                          Text(
-                            reclamationEnCours.description,
+                        
+                            Text(
+                            // reclamationEnCours.description,
+                            reclamationEnCours.description.length > 15
+                            ? '${reclamationEnCours.description.substring(0, 15)}...'
+                            : reclamationEnCours.description,
                             style:const TextStyle(
                               fontSize:16, 
                               color:Colors.black54,
 
                             ),
                           ),
+                                                  
                         ],
                       ),
                     ),
@@ -105,7 +122,7 @@ Future<void> User_reclamation() async{
                               width:23,
                               alignment:Alignment.center,
                               decoration:BoxDecoration(
-                                color:const Color(0xff113953),
+                                color:Color.fromARGB(255, 16, 68, 102),
                                 borderRadius:BorderRadius.circular(25),
                               ),
                               child: const Text(
@@ -124,7 +141,9 @@ Future<void> User_reclamation() async{
               ),
               ),
             );
-        }) ;
+        }
+      )
+    );
     
     
     

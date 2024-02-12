@@ -1,11 +1,11 @@
 class Reponse{
 
-   int? id, reclamationId;
-  String? message;
-  bool? luMessage;
+   int id, reclamationId;
+  String message;
+  bool luMessage;
  
 
-  Reponse({this.id, this.message, this.reclamationId, this.luMessage});
+  Reponse({required this.id, required this.message, required this.reclamationId, required this.luMessage});
 
   factory Reponse.fromJson(Map<String, dynamic> json){
     return Reponse(
