@@ -66,7 +66,7 @@ class Api{
   /*
   Methode à utiliser pour des routes GET qui demandent des paramètres
  */
-  getDataWithDataInUrl(data, apiUrl) async {
+  getDataWithDataInUrl(apiUrl,data) async {
     // ignore: prefer_interpolation_to_compose_strings
     var fullUrl = "${_url + apiUrl}/"+data;
 
@@ -78,7 +78,7 @@ class Api{
      dio.options.headers["authorization"] = "Bearer ${globals.access_token}";
     //  print("Je suis la clé de l'user connecté");
      print(globals.id_user);
-      return   await dio.get(fullUrl,data : data);
+      return   await dio.post(fullUrl,data : data);
    
    
   }

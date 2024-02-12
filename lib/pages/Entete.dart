@@ -20,11 +20,14 @@ class _EnteteMessageState extends State<EnteteMessage> {
 
   Future<void> getListReponsesReclamation() async{
   try{
-       var listReponses = await Api().getDataWithDataInUrl("list_message",widget.reclamation.id);
-         var listReponsesObjet = listReponses.data;
+       var listReponses = await Api().getDataWithDataInUrl("list_message",widget.reclamation.id.toString());
+         var listReponsesObjet = listReponses.data["data"];
+
+        //  print(listReponsesObjet);
 
           for (var i in listReponsesObjet) {
 
+ print(i);
          setState(() {
            
             var reponse = Reponse.fromJson(i);
@@ -34,7 +37,7 @@ class _EnteteMessageState extends State<EnteteMessage> {
 
         
   }catch(e){
-      print("erreur");
+      print(e);
   }
     
 
@@ -90,39 +93,39 @@ print("je passe par ici");
           ),
         ),
       ),
-      body: const Text("Je suis là"),
-      //   SizedBox(
-    //     height: MediaQuery.of(context).size.height,
-    //     child: ListView.builder(
+      body:
+        SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: ListView.builder(
           
-    //       itemCount: listReponsesReclamation.length,
-    //       itemBuilder: ( BuildContext context, int index){
+          itemCount: listReponsesReclamation.length,
+          itemBuilder: ( BuildContext context, int index){
 
       
-    //         return Messagerie(reponse: listReponsesReclamation[index]);
-    //       }, 
+            return Messagerie(reponse: listReponsesReclamation[index]);
+          }, 
           
-    //       ),
-    //   ),
-    //   // ListView(
-    //   //   padding:const EdgeInsets.only(
-    //   //         top:20, 
-    //   //         left:20, 
-    //   //         right:20, 
-    //   //         bottom:80
-    //   //       ),
-    //   //   children:const [
-    //   //     // Messagerie(),
+          ),
+      ),
+      // ListView(
+      //   padding:const EdgeInsets.only(
+      //         top:20, 
+      //         left:20, 
+      //         right:20, 
+      //         bottom:80
+      //       ),
+      //   children:const [
+      //     // Messagerie(),
 
-    //   //     ListTile( title: Text("Bonsooir")),
-    //   //     ListTile( title: Text("Bonjor")),
-    //   //     ListTile( title: Text("exte")),
+      //     ListTile( title: Text("Bonsooir")),
+      //     ListTile( title: Text("Bonjor")),
+      //     ListTile( title: Text("exte")),
 
         
          
-    //   //   ],
-    //   // ),
-    //   bottomSheet: const ChatBottom(),
+      //   ],
+      // ),
+      bottomSheet: const ChatBottom(),
     );
   }
 }

@@ -2,7 +2,7 @@ class Reponse{
 
    int id, reclamationId;
   String message;
-  bool luMessage;
+  int luMessage;
  
 
   Reponse({required this.id, required this.message, required this.reclamationId, required this.luMessage});

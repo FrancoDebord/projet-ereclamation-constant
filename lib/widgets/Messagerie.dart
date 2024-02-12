@@ -63,8 +63,8 @@ class _MessagerieState extends State<Messagerie> {
             clipper:LowerNipMessageClipper(MessageType.send),
             child: Container(
               padding:const EdgeInsets.only(left:20, top: 10, bottom: 25, right:20),
-              decoration: const BoxDecoration(
-                color:Color(0xff005198),
+              decoration: const  BoxDecoration(
+                color: Color(0xff005198),
                 // boxShadow:[
                 //   BoxShadow(
                 //     color: Colors.grey.WithOpacity(0.5),
@@ -75,11 +75,11 @@ class _MessagerieState extends State<Messagerie> {
                 //   ),
                 // ]
               ),
-              child:const Text(
+              child: Text(
 
                 //La reponse liée à la reclamation
-                "Hello, Programmer, i am fine, and you?",
-                style: TextStyle(
+                widget.reponse.message,
+                style: const TextStyle(
                   fontSize:16,
                   color:Colors.white
                 ),
