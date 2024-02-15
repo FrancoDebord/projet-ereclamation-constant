@@ -1,27 +1,61 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:message/auth/api.dart';
 import 'package:message/models/Reclamation.dart';
-import 'package:message/reclamation/reclamation_client.dart';
+// import 'package:message/models/Reclamation.dart';
 // import 'package:message/widgets/ActiveChats.dart';
 import 'package:message/widgets/RecentChats.dart';
+import "package:message/globals.dart" as globals;
 
-// import '../../../../auth/login.dart';
-
-class HomePage extends StatelessWidget {
-
-  const HomePage({super.key, required this.listReclamations});
-  final List<Reclamation> listReclamations;
+class ClientPage extends StatefulWidget {
+  const ClientPage({super.key});
 
   @override
+  State<ClientPage> createState() => _ClientPageState();
+}
+
+class _ClientPageState extends State<ClientPage> {
+
+
+ final List<Reclamation> listReclamations=[];
+  @override
+ void initState()   {
+    super.initState();
+    telechargerReclamationClient();
+}
+
+Future<void> telechargerReclamationClient() async {
+  try{
+
+
+        // var reclamationClient = await Api().getDataWithDataInUrl("list-client_reclamation",globals.user_connecte.id.toString());
+        var reclamationClient = await Api().getDataWithOutData("list-client_reclamation/${globals.user_connecte.id}");
+         var listReclamationsObjet = reclamationClient.data;
+
+          for (var reclamationJson in listReclamationsObjet) {
+
+         setState(() {
+           
+            var reclamation = Reclamation.fromJson(reclamationJson);
+            listReclamations.add(reclamation);
+         });
+        }
+
+        
+  }catch(e){
+    print(e);
+  }
+}
   Widget build(BuildContext context) {
     return Scaffold(
-      //drawer: const Drawer(),
+      drawer: const Drawer(),
       appBar: AppBar(
-          title: const Text("Liste des réclamations"),
+          title: const Text("Liste des réclamations client"),
         actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Icon(Icons.notifications),
-          ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Icon(Icons.notifications),
+        ),
 
       ]),
       body: ListView(
@@ -60,9 +94,8 @@ class HomePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: TextFormField(
-                        decoration:  InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Search",
-                          hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
                           border: InputBorder.none,
                         ),
                       ),
@@ -77,18 +110,14 @@ class HomePage extends StatelessWidget {
             ),
           ),
           // const ActiveChats(),
-           RecentChats(listReclamations: listReclamations),
+          RecentChats(listReclamations: listReclamations),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff005198),
         child: const Icon(Icons.add),
         onPressed: () {
-           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  ReclamationClient()),
-           );
-         // Navigator.pushNamed(context, "reclamation");
+          Navigator.pushNamed(context, "reclamation");
         },
       ),
     );

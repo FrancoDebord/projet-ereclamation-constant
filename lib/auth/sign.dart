@@ -37,13 +37,15 @@ class _SignupState extends State<Signup> {
       print( "$body");
 
       if(body['status']==200){
+         // ignore: use_build_context_synchronously
          Navigator.pushNamed(context, "login");   
       }
 
+       // ignore: use_build_context_synchronously
        ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-      content: Text("Votre compte a été créé avec succès"),
-      duration: Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      content: const Text("Votre compte a été créé avec succès"),
+      duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
       action: SnackBarAction(
         label: 'OK',
         onPressed: () {
@@ -51,10 +53,11 @@ class _SignupState extends State<Signup> {
         },
       ),));
     }catch(e){
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
       content: Text("Votre compte n'a pas été créé, $e"),
-      duration: Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
       action: SnackBarAction(
         label: 'OK',
         onPressed: () {

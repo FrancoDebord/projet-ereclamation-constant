@@ -7,27 +7,23 @@ import "package:message/pages/Entete.dart";
 class RecentChats extends StatefulWidget{
    const RecentChats({super.key, required this.listReclamations});
   final List<Reclamation> listReclamations;
+  
 
 
   @override
   State<RecentChats> createState() => _RecentChatsState();
 }
+final List<Reclamation> reclamation_client =[];
 
 class _RecentChatsState extends State<RecentChats> {
-  List<Reclamation> reclamation_client =[];
-
+  
 Future<void> User_reclamation() async{
   try{
       List dataClient= await Api().getDataWithOutData("list-client_reclamation");
 
-      // for (var i in dataClient) {
-      //     var reclamationClient = Reclamation.fromJson(i);
-      //     reclamationClient.add(reclamationClient );
-      //   }
-
     
-      print("je suis là");
-      print(dataClient);
+      // print("je suis là");
+      // print(dataClient);
   }catch(e){
 
   }
@@ -42,7 +38,9 @@ Future<void> User_reclamation() async{
     return 
     Container(
       height: MediaQuery.of(context).size.height,
-      child: ListView.builder(
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child:  ListView.builder(
           itemCount: widget.listReclamations.length,
           itemBuilder: (BuildContext context, int  i){
           
@@ -143,7 +141,7 @@ Future<void> User_reclamation() async{
             );
         }
       )
-    );
+     ) );
     
     
     

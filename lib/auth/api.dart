@@ -18,10 +18,10 @@ class Api{
   // }
   
   // final String _url= "http://127.0.0.1:8000/";
-  final String _url= "https://api-constant.airid-africa.com/public/api/";
+  // final String _url= "https://api-constant.airid-africa.com/public/api/";
   // final String _url= "http://192.168.43.1/api/";
-  // final String _url= "http://10.0.2.2:8000/api/";
-  postData(data, apiUrl) async {
+  final String _url= "http://10.0.2.2:8000/api/";
+   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
 
      final dio = Dio();
@@ -64,7 +64,7 @@ class Api{
   }
 
   /*
-  Methode à utiliser pour des routes GET qui demandent des paramètres
+  Methode à utiliser pour des routes GET qui demandent des paramètres à inclure dans la route (l'url complète)
  */
   getDataWithDataInUrl(apiUrl,data) async {
     // ignore: prefer_interpolation_to_compose_strings

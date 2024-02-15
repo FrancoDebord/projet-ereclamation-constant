@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class MyAdmin extends StatefulWidget {
 
-   MyAdmin({super.key});
+  const MyAdmin({super.key});
 
   @override
   State<MyAdmin> createState() => _MyAdminState();

@@ -39,6 +39,7 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
      try{
        var responseCloturee = await Api().getDataWithOutData("list-reclamation-cloturees");
        var responseEnCours = await Api().getDataWithOutData("list-reclamation-en-cours");
+
      var reclamationsCloturees = responseCloturee.data;
     //  var reclamationsCloturees = List.from(responseCloturee.data['reclamations']);
       var reclamationsEnCours = responseEnCours.data;
@@ -57,9 +58,9 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
         }
 
         
-        // print(listReclamationsCloturees);
+        print(listReclamationsCloturees);
 
-        // print(listReclamationsEnCours);
+        print(listReclamationsEnCours);
 
       setState(() {
         

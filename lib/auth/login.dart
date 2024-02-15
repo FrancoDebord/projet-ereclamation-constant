@@ -4,6 +4,7 @@
 // import 'package:message/auth/sign.dart';
 import 'package:flutter/material.dart';
 import 'package:message/auth/api.dart';
+import 'package:message/chatClient/HomeClient.dart';
 import 'package:message/models/User.dart';
 //import "dart:convert";
 import 'package:message/globals.dart' as globals;
@@ -82,6 +83,7 @@ class _LoginState extends State<Login> {
         height: 150,
         width: 150,
         decoration: BoxDecoration(
+        //  borderRadius: BorderRadius.circular(8),
           shape: BoxShape.circle,
           border: Border.all(
             color: Colors.blue[900]!,
@@ -141,14 +143,7 @@ class _LoginState extends State<Login> {
       backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[900]?? Colors.blue),
     ),
     onPressed: () async {
-        // showDialog(
-        //           context: context,
-        //           builder: (BuildContext context) {
-        //             return Center(
-        //           child: CircularProgressIndicator(),
-        //             );
-        //           },
-        // );
+       
       try {
           
       var email = emailController.text.trim();
@@ -163,20 +158,25 @@ class _LoginState extends State<Login> {
       // final dio = Dio();
       // final response = await dio.post('http://10.0.2.2:8000/api/login',data : data);
 
+     
     var response = await Api().postData(data, "login");
     var body = response.data;
 
     if(body["status"] == 1){
       User user = User.fromJson(body["user"]);
-
-      
+     
       globals.access_token = body["access_token"];
       globals.user_connecte = user;
 
       if(user.typeUser == "client"){
-        Navigator.pushNamed(context, "HomePage");
+       
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ClientPage()),
+        );
       }else{
-       //  Navigator.pushNamed(context, "HomePage");
+        
+       
           Navigator.pushNamed(context, "dashboard");
        // Navigator.pushNamed(context, "HomePage");
       }

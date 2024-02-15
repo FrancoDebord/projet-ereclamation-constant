@@ -1,17 +1,18 @@
 class Reponse{
 
-   int id, reclamationId;
+   int id, reclamationId, clientId;
   String message;
   int luMessage;
  
 
-  Reponse({required this.id, required this.message, required this.reclamationId, required this.luMessage});
+  Reponse({required this.id, required this.message, required this.reclamationId, required this.clientId, required this.luMessage});
 
   factory Reponse.fromJson(Map<String, dynamic> json){
     return Reponse(
       id: json['id'],
       message: json['message'],
       reclamationId: json['reclamation_id'],
+      clientId: json["client_id"],
       luMessage:json['lu_message'],
     );
   }

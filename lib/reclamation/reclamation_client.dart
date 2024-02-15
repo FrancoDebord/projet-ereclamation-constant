@@ -3,7 +3,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:message/auth/api.dart';
+import 'package:message/chatClient/HomeClient.dart';
 import 'package:message/dashboard/pages/home/widgets/HomePage.dart';
+
+import 'package:message/globals.dart' as globals;
 // import 'package:message/chatClient/pages/HomePage.dart';
 // import 'package:message/dashboard/pages/home/page.dart';
 // import 'package:message/auth/login.dart';
@@ -18,32 +21,43 @@ class ReclamationClient extends StatefulWidget {
 }
  
 class _ReclamationState extends State<ReclamationClient> {
-  TextEditingController Objet_reclamationController = TextEditingController();
+  TextEditingController objetReclamationController = TextEditingController();
   TextEditingController descriptionController= TextEditingController();
   TextEditingController uidController= TextEditingController();
 
 
-  Future<void> add_reclamation() async {
+  Future<void> addReclamation() async {
 
    
     try{
     final data={
-      "objet":Objet_reclamationController .text.toString(),
-      "description":descriptionController.text.toString(),
-     // "client_id":uidController.text.toString(),
+      "objet":objetReclamationController.text,
+      "description":descriptionController.text,
+      "client_id":globals.user_connecte.id.toString(),
      
       
     };
+
      
 
       final response = await Api().postData(data, "creer-reclamation");
-
-        print(response);
      
       final body = response.data;
 
 
-       print( "La réclamation a été envoyée avec succès $body");
+       ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+      content: const Text("La réclamation a été envoyée avec succès"),
+      duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      action: SnackBarAction(
+        label: 'OK',
+        onPressed: () {
+            Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ClientPage()),
+        );  
+        },
+      ),));
 
       // if(body['status']==200){
       //     ScaffoldMessenger.of(context).showSnackBar(
@@ -119,7 +133,7 @@ class _ReclamationState extends State<ReclamationClient> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: Objet_reclamationController,
+                controller: objetReclamationController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Entrer l\'objet de la demande ',
@@ -159,8 +173,8 @@ class _ReclamationState extends State<ReclamationClient> {
                   },
                 );
             try{
-              add_reclamation();
-              Objet_reclamationController .text="";
+              addReclamation();
+              objetReclamationController .text="";
               descriptionController.text="";
 
                await Future.delayed(Duration(seconds: 2)); // Attendez 2 secondes

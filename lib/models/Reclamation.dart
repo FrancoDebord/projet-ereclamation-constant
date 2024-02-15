@@ -1,7 +1,7 @@
 class Reclamation{
 
    int id;
-   int clientId;
+  int clientId;
   String objet;
   String description;
   String statutReclam;

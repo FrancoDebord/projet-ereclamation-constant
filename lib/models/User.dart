@@ -20,6 +20,7 @@ class User{
       prenom: json['prenom'],
       email: json['email'],
       typeUser:json['typeUser'],
+      adresse: json['adresse'],
       phone: json['phone'],
       password: json["password"]
     );

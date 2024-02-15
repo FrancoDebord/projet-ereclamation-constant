@@ -1,7 +1,10 @@
 import 'package:message/dashboard/model/menu_modal.dart';
 import 'package:message/dashboard/responsive.dart';
 import 'package:flutter/material.dart';
+// import 'package:message/globals.dart' as globals;
 import 'package:flutter_svg/svg.dart';
+
+import '../../auth/api.dart';
 
 class Menu extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -14,48 +17,40 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   
+  Future<void> logout() async {
+    try{
+   
+      final response = await Api().getDataWithOutData("logout");
+
+        print(response);
+     
+      final body = response.data;
+       print( "Déconnexion effectuée $body");
+      // if(body['status']==200){
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //         SnackBar(
+      //         content: Text("Votre demande a été enregistrée avec succès"),
+      //         duration: Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      //         action: SnackBarAction(
+      //           label: 'OK',
+      //           onPressed: () {
+      //             Navigator.pushNamed(context, "chatPage");   
+      //     },
+      //   ),)
+      // );
+      if(body['status']==1){
+        print( "Déconnexion effectuée $body");
+      }else{
+          print("Erreur $body");
+      }
+   
+    }catch(e){
+      print(e);
+    }
+
+   }
   late List<MenuModel> menu;  
-  // final List<MenuModel> menu = [
-  //   MenuModel(
-  //     icon: 'assets/svg/home.svg',
-  //     title: "Admin",
-  //     onTap: () {
-  //       Navigator.pushNamed(context, 'admin');
-  //     },
-  //   ),
-  //   MenuModel(
-  //     icon: 'assets/svg/profile.svg',
-  //     title: "Profile",
-  //     onTap: () {
-  //       Navigator.pushNamed(context, 'profile');
-  //     },
-  //   ),
-  //   // MenuModel(
-  //   //   icon: 'assets/svg/exercise.svg',
-  //   //   title: "Exercise",
-  //   //   onTap: () {
-  //   //     Navigator.pushNamed(context, 'exercise');
-  //   //   },
-  //   // ),
-  //   MenuModel(
-  //     icon: 'assets/svg/setting.svg',
-  //     title: "Settings",
-  //     onTap: () {
-  //       Navigator.pushNamed(context, 'settings');
-  //     },
-  //   ),
-  //   MenuModel(
-  //     icon: 'assets/svg/history.svg',
-  //     title: "History",
-  //     onTap: () {
-  //       Navigator.pushNamed(context, 'history');
-  //     },
-  //   ),
-  //   MenuModel(
-  //     icon: 'assets/svg/signout.svg',
-  //     title: "Signout",
-  //   ),
-  // ];
+  
 
   int selected = 0;
 
@@ -79,23 +74,23 @@ class _MenuState extends State<Menu> {
     
     MenuModel(
       icon: 'assets/svg/setting.svg',
-      title: "Settings",
+      title: "Paramètres",
       onTap: () {
         Navigator.pushNamed(context, 'settings');
       },
     ),
-    MenuModel(
-      icon: 'assets/svg/history.svg',
-      title: "History",
-      onTap: () {
-        Navigator.pushNamed(context, 'history');
-      },
-    ),
+    // MenuModel(
+    //   icon: 'assets/svg/history.svg',
+    //   title: "History",
+    //   onTap: () {
+    //     Navigator.pushNamed(context, 'history');
+    //   },
+    // ),
     MenuModel(
       icon: 'assets/svg/signout.svg',
-      title: "Signout", 
+      title: "Déconnexion", 
       onTap: () { 
-        Navigator.pushNamed(context, 'Déconnexion');
+       logout();
        },
     ),
   ];
