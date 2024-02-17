@@ -24,6 +24,9 @@ class Api{
    postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
 
+    print(fullUrl);
+    print(data);
+
      final dio = Dio();
       dio.options.headers['content-Type'] = 'application/json';
      dio.options.headers['Accept'] = 'application/json';

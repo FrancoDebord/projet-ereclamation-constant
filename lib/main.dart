@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xfff5f5f3),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xffffffff),
-          foregroundColor: Color(0xff005198),
+          backgroundColor:Color(0xff005198),
+          foregroundColor: Color(0xffffffff),
         ),
       ),
       routes: {
@@ -63,12 +63,12 @@ class MyApp extends StatelessWidget {
       "login":(context)=> const Login(),
 
        //"/":(context)=>MyApp(),
-       "HomePage": (context) =>  HomePage(listReclamations: const []),
+       "HomePage": (context) =>  const HomePage(listReclamations:  []),
         "register":(context) =>const Signup(), 
          "reclamation":(context)=> const ReclamationClient(),
         // "chatPage":(context) =>const EnteteMessage(), 
         // "chatPage":(context) =>const ChatPage(), 
-        "dashboard": (context) => MyAdmin(),
+        "dashboard": (context) =>const MyAdmin(),
         
 
       },

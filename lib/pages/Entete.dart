@@ -39,7 +39,7 @@ class _EnteteMessageState extends State<EnteteMessage> {
     super.initState();
     getListReponsesReclamation();
 
-    print("je passe par ici");
+    //print("je passe par ici");
     print(listReponsesReclamation);
   }
 
@@ -53,6 +53,7 @@ class _EnteteMessageState extends State<EnteteMessage> {
           padding: const EdgeInsets.only(top: 5),
           child: AppBar(
             backgroundColor: const Color(0xff005198),
+            //color:Colors.white,
             leadingWidth: 30,
             title: Row(children: [
               ClipRRect(
@@ -79,33 +80,68 @@ class _EnteteMessageState extends State<EnteteMessage> {
       ),
       body: SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  widget.reclamation.description,
-                  style: const TextStyle( 
-                    fontSize: 16, 
-                    color: Colors.red, 
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        borderRadius:  BorderRadius.circular(10),
+                        color: const Color(0xff005198), 
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2), 
+                            spreadRadius: 2, 
+                            blurRadius: 5, 
+                            offset: const Offset(0,2),
+                          ),
+                        ],
+                        
+                        border: Border.all(
+                          color:const Color(0xff005198), // Couleur de la bordure
+                          width: 2, // Epaisseur de la bordure
+                        ),
+                      ),
+                      child: Column(children: [
+                      const  Text("Description de la réclamation", 
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color:Colors.white
+                        ),
+                      ),
+                     const SizedBox(height: 10,),
+                      Text(
+                        widget.reclamation.description,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                   ],) ),
                   ),
-                  ),
-                ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: ListView.builder(
-                  itemCount: listReponsesReclamation.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Messagerie(
-                        reponse: listReponsesReclamation[index],
-                        reclamation: widget.reclamation);
-                  },
-                ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: ListView.builder(
+                      itemCount: listReponsesReclamation.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Messagerie(
+                            reponse: listReponsesReclamation[index],
+                            reclamation: widget.reclamation);
+                      },
+                    ),
+                  )
+                ],
               )
             ],
           )),
-      bottomSheet: ChatBottom(),
+      bottomSheet: ChatBottom(
+        reclamation: widget.reclamation,
+      ),
     );
   }
 }

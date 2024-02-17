@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             child: Text(
               "Messages",
               style: TextStyle(
-                color: Color(0xff005198),
+               // color: Color(0xff005198),
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),

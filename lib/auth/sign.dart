@@ -56,7 +56,7 @@ class _SignupState extends State<Signup> {
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-      content: Text("Votre compte n'a pas été créé, $e"),
+      content: Text("Votre compte n'a pas été créé"),
       duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
       action: SnackBarAction(
         label: 'OK',
