@@ -114,6 +114,24 @@ class _EnteteMessageState extends State<EnteteMessage> {
                           color:Colors.white
                         ),
                       ),
+                      ElevatedButton(
+                        onPressed: (){
+
+
+                          setState(() {
+                            
+                            widget.reclamation.statutReclam = "traite";
+                          });
+                        }, 
+                        child: const Text('Clôturer'),
+
+
+                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                          
+                      //   },
+                      // ),
                      const SizedBox(height: 10,),
                       Text(
                         widget.reclamation.description,
@@ -139,8 +157,22 @@ class _EnteteMessageState extends State<EnteteMessage> {
               )
             ],
           )),
-      bottomSheet: ChatBottom(
+      bottomSheet: (widget.reclamation.statutReclam != "traite")?ChatBottom(
         reclamation: widget.reclamation,
+      ):  Container(
+
+        decoration: const BoxDecoration(
+
+          // color: Color(0xff005198)
+
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child:  const Text(
+          "Cette réclamation est déjà clôturée", 
+          style: TextStyle(
+            color: Colors.red
+          ),
+        ),
       ),
     );
   }

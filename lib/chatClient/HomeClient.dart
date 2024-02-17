@@ -1,11 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:message/auth/api.dart';
 import 'package:message/models/Reclamation.dart';
+import 'package:message/models/Reponse.dart';
 // import 'package:message/models/Reclamation.dart';
 // import 'package:message/widgets/ActiveChats.dart';
 import 'package:message/widgets/RecentChats.dart';
 import "package:message/globals.dart" as globals;
+import 'package:badges/badges.dart' as badges;
 
 class ClientPage extends StatefulWidget {
   const ClientPage({super.key});
@@ -15,49 +16,98 @@ class ClientPage extends StatefulWidget {
 }
 
 class _ClientPageState extends State<ClientPage> {
+  final List<Reclamation> listReclamations = [];
+  final List<Reponse> listreponsesNonLues = [];
+
+  int nombreReponsesNonLues = 0; //Le nombre de réponses non lues par le client
+  bool afficherBadge = true;//savoir si on doit afficher le badge ou pas
+   Color color = Colors.red;
 
 
- final List<Reclamation> listReclamations=[];
   @override
- void initState()   {
+  void initState() {
     super.initState();
     telechargerReclamationClient();
-}
-
-Future<void> telechargerReclamationClient() async {
-  try{
-
-
-        // var reclamationClient = await Api().getDataWithDataInUrl("list-client_reclamation",globals.user_connecte.id.toString());
-        var reclamationClient = await Api().getDataWithOutData("list-client_reclamation/${globals.user_connecte.id}");
-         var listReclamationsObjet = reclamationClient.data;
-
-          for (var reclamationJson in listReclamationsObjet) {
-
-         setState(() {
-           
-            var reclamation = Reclamation.fromJson(reclamationJson);
-            listReclamations.add(reclamation);
-         });
-        }
-
-        
-  }catch(e){
-    print(e);
+    telechargerReponsesNonLuesClient();
   }
-}
+
+  Future<void> telechargerReclamationClient() async {
+    try {
+      var reclamationClient = await Api().getDataWithOutData(
+          "list-client_reclamation/${globals.user_connecte.id}");
+      var listReclamationsObjet = reclamationClient.data;
+
+      for (var reclamationJson in listReclamationsObjet) {
+        setState(() {
+          var reclamation = Reclamation.fromJson(reclamationJson);
+          listReclamations.add(reclamation);
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> telechargerReponsesNonLuesClient() async {
+    try {
+      var reponsesNonLuesClient = await Api().getDataWithOutData(
+          "list-reponses-non-lues/${globals.user_connecte.id}");
+      var listReponsesLues = reponsesNonLuesClient.data;
+
+      for (var reponseJson in listReponsesLues) {
+        setState(() {
+          var reponseObjet = Reponse.fromJson(reponseJson);
+          listreponsesNonLues.add(reponseObjet);
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+   Widget badgeReponsesNonLues() {
+    return badges.Badge(
+      position: badges.BadgePosition.topEnd(top: 0, end: 3),
+      badgeAnimation: const badges.BadgeAnimation.slide(
+          disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+          curve: Curves.easeInCubic,
+          ),
+      showBadge: afficherBadge,
+      badgeStyle: badges.BadgeStyle(
+        badgeColor: color,
+      ),
+      badgeContent: Text(
+        nombreReponsesNonLues.toString(),
+        style: const TextStyle(color: Colors.white),
+      ),
+      child: IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
+    );
+  }
+
   Widget build(BuildContext context) {
+
+    // afficherBadge  = nombreReponsesNonLues > 0;
+
+
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
           title: const Text("Liste des réclamations client"),
-        actions: const [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Icon(Icons.notifications),
-        ),
+           leading: badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 10, end: 10),
+            child: IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {},
+            ),
+          ),
+          actions:  [
 
-      ]),
+            badgeReponsesNonLues(),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 15),
+            //   child: Icon(Icons.notifications),
+            // ),
+          ]),
       body: ListView(
         children: [
           const Padding(
