@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:message/auth/api.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -12,25 +13,36 @@ class _ResetPasswordState extends State<ResetPassword> {
   final TextEditingController emailController = TextEditingController();
   bool isLoading = false;
 
-  void _resetPassword() async {
+  Future<void> resetpassword() async {
     setState(() {
       isLoading = true; // Activer le chargement
     });
-
     try {
-      // await FirebaseAuth.instance.sendPasswordResetEmail(
-      //   email: emailController.text.trim(),
-      // );
+      var data = {"email": emailController.text};
 
-      // Attendre deux secondes avant de désactiver le chargement
-      await Future.delayed(const Duration(seconds: 2));
+      var response = Api().postData(data, "forgetPassword");
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-              'Un lien de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.'),
-        ),
-      );
+      var body = response.data;
+
+      if(body["status"]==1){
+        print("Votre mot de passe a été changé avec succès");
+
+        print(body);
+      }else{
+         ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+      content: const Text("L'opération n'a pas marché, veuillez réssayer après"),
+      duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      action: SnackBarAction(
+        label: 'OK',
+        onPressed: () {
+        //     Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => ClientPage()),
+        // );  
+        },
+      ),));
+      }
 
       // Rediriger l'utilisateur vers la page de connexion
       Navigator.of(context).pop(); // Fermer la page actuelle
@@ -75,9 +87,10 @@ class _ResetPasswordState extends State<ResetPassword> {
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: isLoading
-                  ? null
-                  : _resetPassword,
+              onPressed: () {
+                  resetpassword();
+                  emailController.text="";
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),

@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+class Logout {
 
-class Logout extends StatelessWidget{
-  @override
+  String email;
+  String token;
+  
+ 
 
-
-  Widget build(BuildContext context){
-    return Scaffold();
+  Logout({required this.email, required this.token});
+  factory Logout.fromJson(Map<String, dynamic> json){
+    return Logout(
+      email: json['email'],
+      token: json['token']);
   }
 }

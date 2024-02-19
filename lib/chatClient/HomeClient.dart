@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:message/auth/api.dart';
+import 'package:message/auth/login.dart';
 import 'package:message/models/Reclamation.dart';
 import 'package:message/models/Reponse.dart';
 // import 'package:message/models/Reclamation.dart';
@@ -20,9 +21,8 @@ class _ClientPageState extends State<ClientPage> {
   final List<Reponse> listreponsesNonLues = [];
 
   int nombreReponsesNonLues = 0; //Le nombre de réponses non lues par le client
-  bool afficherBadge = true;//savoir si on doit afficher le badge ou pas
-   Color color = Colors.red;
-
+  bool afficherBadge = true; //savoir si on doit afficher le badge ou pas
+  Color color = Colors.red;
 
   @override
   void initState() {
@@ -65,13 +65,13 @@ class _ClientPageState extends State<ClientPage> {
     }
   }
 
-   Widget badgeReponsesNonLues() {
+  Widget badgeReponsesNonLues() {
     return badges.Badge(
       position: badges.BadgePosition.topEnd(top: 0, end: 3),
       badgeAnimation: const badges.BadgeAnimation.slide(
-          disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
-          curve: Curves.easeInCubic,
-          ),
+        disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+        curve: Curves.easeInCubic,
+      ),
       showBadge: afficherBadge,
       badgeStyle: badges.BadgeStyle(
         badgeColor: color,
@@ -80,28 +80,66 @@ class _ClientPageState extends State<ClientPage> {
         nombreReponsesNonLues.toString(),
         style: const TextStyle(color: Colors.white),
       ),
-      child: IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
+      child:
+          IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
     );
   }
 
+  Future<dynamic> deconnection() async {
+    var data = {
+      "token": globals.access_token,
+    };
+
+    var logoutUser = await Api().postData(data, "logout");
+
+    var body = logoutUser.data;
+
+    print(body);
+
+    return body;
+
+    // if(body["status"]==1){
+
+    //   //  ScaffoldMessenger.of(context).showSnackBar(
+    //   // SnackBar(
+    //   // content: const Text("Vous êtes déconnecté avec succès"),
+    //   // duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+    //   // action: SnackBarAction(
+    //   //   label: 'OK',
+    //   //   onPressed: () {
+    //   //       Navigator.push(
+    //   //     context,
+    //   //     MaterialPageRoute(builder: (context) => Login()),
+    //   //   );
+    //   //   },
+    //   // ),));
+    // }
+  }
+
+  @override
   Widget build(BuildContext context) {
-
     // afficherBadge  = nombreReponsesNonLues > 0;
-
 
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
           title: const Text("Liste des réclamations client"),
-           leading: badges.Badge(
+          leading: badges.Badge(
             position: badges.BadgePosition.topEnd(top: 10, end: 10),
             child: IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {},
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                deconnection().then((data) {
+                  if (data["status"] == "1") {
+
+                  print("data je suis ici : $data");
+                    Navigator.push(context, MaterialPageRoute(builder: ((context) =>  Login(messageOptionnel:data["message"]))));
+                  }
+                });
+              },
             ),
           ),
-          actions:  [
-
+          actions: [
             badgeReponsesNonLues(),
             // Padding(
             //   padding: EdgeInsets.symmetric(horizontal: 15),

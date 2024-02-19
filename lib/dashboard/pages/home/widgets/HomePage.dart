@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:message/models/Reclamation.dart';
-import 'package:message/reclamation/reclamation_client.dart';
+// import 'package:message/reclamation/reclamation_client.dart';
 // import 'package:message/widgets/ActiveChats.dart';
 import 'package:message/widgets/RecentChats.dart';
 
@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       //drawer: const Drawer(),
       appBar: AppBar(
+        backgroundColor: Color(0xff005198),
           title: const Text("Liste des réclamations"),
         actions: const [
           Padding(
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget {
             child: Text(
               "Messages",
               style: TextStyle(
-               // color: Color(0xff005198),
+                color: Color(0xff005198),
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
@@ -82,12 +83,13 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff005198),
-        child: const Icon(Icons.add),
+        
+        child: const Icon(Icons.message, color: Colors.white, ),
         onPressed: () {
-           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  ReclamationClient()),
-           );
+          //  Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) =>  ReclamationClient()),
+          //  );
          // Navigator.pushNamed(context, "reclamation");
         },
       ),

@@ -12,7 +12,9 @@ import 'package:message/globals.dart' as globals;
 import 'resetpassword.dart';
  
 class Login extends StatefulWidget {
-  const Login({super.key});
+
+   final String ? messageOptionnel;
+   const  Login({super.key, this.messageOptionnel});
  
   @override
   State<Login> createState() => _LoginState();
@@ -22,6 +24,9 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
  bool isloading = false;
+
+
+
   @override
 
 // La méthode de l'api
@@ -53,6 +58,22 @@ class _LoginState extends State<Login> {
 
   
   Widget build(BuildContext context) {
+
+    // if(widget.messageOptionnel != ""){
+
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //   content:  Text(widget.messageOptionnel??""),
+    //   duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+    //   action: SnackBarAction(
+    //     label: 'OK',
+    //     onPressed: () {
+           
+    //     },
+    //   ),
+    //   )
+    //   );
+    // }
     return Scaffold(
       body:
     Padding(
@@ -170,27 +191,46 @@ class _LoginState extends State<Login> {
 
       if(user.typeUser == "client"){
        
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ClientPage()),
+          MaterialPageRoute(builder: (context) => const ClientPage()),
         );
       }else{
         
        
+          // ignore: use_build_context_synchronously
           Navigator.pushNamed(context, "dashboard");
        // Navigator.pushNamed(context, "HomePage");
       }
 
     }else{
 
+       // ignore: use_build_context_synchronously
+       ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+      content: const Text("Identifiant ou mot de passe incorrect"),
+      duration: const Duration(seconds: 3), // Facultatif : Durée d'affichage du SnackBar
+      action: SnackBarAction(
+        label: 'OK',
+        onPressed: () {
+            Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Login()),
+        );  
+        },
+      ),));
+
+ // ignore: avoid_print
       print("Connexion échouée : ${body["message"]} ");
     }
-      await Future.delayed(Duration(seconds: 2)); // Attendez 2 secondes
+      await Future.delayed(const Duration(seconds: 2)); // Attendez 2 secondes
     
           // Navigator.pop(context);
               
       } catch (e) {
        
+        // ignore: avoid_print
         print( e);
       }
 
@@ -198,7 +238,7 @@ class _LoginState extends State<Login> {
     passwordController.text="";
 
     },
-    child: Text('Se connecter'), // Ajoutez le Text
+    child: const Text('Se connecter'), // Ajoutez le Text
      
     ),
 

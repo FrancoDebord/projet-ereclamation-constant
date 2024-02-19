@@ -30,6 +30,7 @@ class _EnteteMessageState extends State<EnteteMessage> {
         });
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
   }
@@ -40,7 +41,8 @@ class _EnteteMessageState extends State<EnteteMessage> {
     getListReponsesReclamation();
 
     //print("je passe par ici");
-    print(listReponsesReclamation);
+    // ignore: avoid_print
+    // print(listReponsesReclamation);
   }
 
   @override
@@ -88,59 +90,70 @@ class _EnteteMessageState extends State<EnteteMessage> {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius:  BorderRadius.circular(10),
-                        color: const Color(0xff005198), 
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2), 
-                            spreadRadius: 2, 
-                            blurRadius: 5, 
-                            offset: const Offset(0,2),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color(0xff005198),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                          border: Border.all(
+                            color: const Color(
+                                0xff005198), // Couleur de la bordure
+                            width: 2, // Epaisseur de la bordure
                           ),
-                        ],
-                        
-                        border: Border.all(
-                          color:const Color(0xff005198), // Couleur de la bordure
-                          width: 2, // Epaisseur de la bordure
                         ),
-                      ),
-                      child: Column(children: [
-                      const  Text("Description de la réclamation", 
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color:Colors.white
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Description de la réclamation",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.white),
+                            ),
+
+                            // GestureDetector(
+                            //   onTap: () {
+
+                            //   },
+                            // ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              widget.reclamation.description,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.reclamation.statutReclam = "traite";
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
+                        backgroundColor: Colors.red,
                       ),
-                      ElevatedButton(
-                        onPressed: (){
-
-
-                          setState(() {
-                            
-                            widget.reclamation.statutReclam = "traite";
-                          });
-                        }, 
-                        child: const Text('Clôturer'),
-
-
-                      ),
-                      // GestureDetector(
-                      //   onTap: () {
-                          
-                      //   },
-                      // ),
-                     const SizedBox(height: 10,),
-                      Text(
-                        widget.reclamation.description,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                   ],) ),
+                      // style: const ButtonStyle(backgroundColor: Colors.red),
+                      child: const Text('Clôturer'),
+                    ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height,
@@ -157,23 +170,22 @@ class _EnteteMessageState extends State<EnteteMessage> {
               )
             ],
           )),
-      bottomSheet: (widget.reclamation.statutReclam != "traite")?ChatBottom(
-        reclamation: widget.reclamation,
-      ):  Container(
+      bottomSheet: (widget.reclamation.statutReclam != "traite")
+          ? ChatBottom(
+              reclamation: widget.reclamation,
+            )
+          : Container(
+              decoration: const BoxDecoration(
 
-        decoration: const BoxDecoration(
+                  // color: Color(0xff005198)
 
-          // color: Color(0xff005198)
-
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child:  const Text(
-          "Cette réclamation est déjà clôturée", 
-          style: TextStyle(
-            color: Colors.red
-          ),
-        ),
-      ),
+                  ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: const Text(
+                "Merci pour la satisfaction, nous vous souhaitons une agréable journée",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
     );
   }
 }

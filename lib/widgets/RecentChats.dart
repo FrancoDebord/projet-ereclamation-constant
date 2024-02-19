@@ -17,30 +17,32 @@ final List<Reclamation> reclamation_client =[];
 
 class _RecentChatsState extends State<RecentChats> {
   
-Future<void> User_reclamation() async{
-  try{
-      List dataClient= await Api().getDataWithOutData("list-client_reclamation");
+// ignore: non_constant_identifier_names
+// Future<void> User_reclamation() async{
+//   try{
+//       var dataClient= await Api().getDataWithOutData("list-client_reclamation");
 
     
-      // print("je suis là");
-      // print(dataClient);
-  }catch(e){
+//       // print("je suis là");
+//       // print(dataClient);
+//   }catch(e){
 
-  }
+//   }
     
 
-}
+// }
   @override
 
   Widget build(BuildContext context){
 
     print(widget.listReclamations);
     return 
-    Container(
+    SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Padding(
-        padding: EdgeInsets.all(10),
-        child:  ListView.builder(
+        padding: const EdgeInsets.all(10),
+        child:  
+        ListView.builder(
           itemCount: widget.listReclamations.length,
           itemBuilder: (BuildContext context, int  i){
           
@@ -55,7 +57,7 @@ Future<void> User_reclamation() async{
                       MaterialPageRoute(builder: (context) => EnteteMessage(reclamation: reclamationEnCours)),
                     );
                 },
-              child:Container(
+              child:SizedBox(
                 height:65,
                 child:Row(
                   children:[
@@ -73,7 +75,7 @@ Future<void> User_reclamation() async{
                             
                               // reclamationEnCours.description,
                             reclamationEnCours.objet.length > 10
-                            ? '${reclamationEnCours.description.substring(0, 10)}...'
+                            ? '${reclamationEnCours.objet.substring(0, 10)}...'
                             : reclamationEnCours.objet,
                            // reclamationEnCours.objet, 
                             style:const TextStyle(
@@ -120,7 +122,7 @@ Future<void> User_reclamation() async{
                               width:23,
                               alignment:Alignment.center,
                               decoration:BoxDecoration(
-                                color:Color.fromARGB(255, 16, 68, 102),
+                                color:const  Color.fromARGB(255, 16, 68, 102),
                                 borderRadius:BorderRadius.circular(25),
                               ),
                               child: const Text(
@@ -141,7 +143,8 @@ Future<void> User_reclamation() async{
             );
         }
       )
-     ) );
+     ) 
+     );
     
     
     
